@@ -52,6 +52,7 @@ export default function PostFavorite() {
           <div className="favorites">
             <h3 className="title">My favorite playlist</h3>
             <div className="box__favor">
+              {console.log("favorite_", checkIdFavorite)}
               {checkIdFavorite.map((favorite) => (
                 <div className="like">
                   <img

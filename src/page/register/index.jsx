@@ -35,8 +35,6 @@ export default function Register() {
   // handle submit event in form with axios
   const userRegister = (e) => {
     e.preventDefault();
-
-    // initialize formdata to store values in state and assign those values to name in input
     const formData = new FormData();
     formData.append("userEmail", register.userEmail);
     formData.append("userPassword", register.userPassword);
@@ -49,10 +47,7 @@ export default function Register() {
       .then((response) => {
         console.log(response.data);
         if (response.data.success) {
-          localStorage.setItem(
-            LOCAL_STORAGE_TOKEN_NAME,
-            response.data.accessToken
-          );
+          localStorage.setItem(LOCAL_STORAGE_TOKEN_NAME, response.data.accessToken);
           history.push("/login");
           loadUser();
           return response;
@@ -70,11 +65,7 @@ export default function Register() {
   return (
     <div className="register">
       <div className="l-form">
-        <form
-          onSubmit={userRegister}
-          enctype="multipart/form-data"
-          className="form"
-        >
+        <form onSubmit={userRegister} enctype="multipart/form-data" className="form">
           <img src="/img/logo1.svg" alt="" />
           <h2 className="form__title">Register</h2>
           <div className="form__div">
@@ -134,11 +125,7 @@ export default function Register() {
             </label>
           </div>
           <div className="form__div">
-            <input
-              type="file"
-              className="form__input"
-              onChange={onChangeFileUserForm}
-            />
+            <input type="file" className="form__input" onChange={onChangeFileUserForm} required />
             <label htmlFor className="form__label">
               Your avartar
             </label>
@@ -146,12 +133,7 @@ export default function Register() {
           <Link to="/login" id="return">
             Return login page
           </Link>
-          <input
-            type="submit"
-            className="form__button"
-            defaultValue="Sign In"
-            value="Register"
-          />
+          <input type="submit" className="form__button" defaultValue="Sign In" value="Register" />
         </form>
       </div>
     </div>

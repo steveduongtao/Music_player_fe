@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../contexts/authContext";
 import { CommentContext } from "../contexts/cmtContext";
 import {
@@ -11,7 +11,6 @@ import {
 } from "../contexts/constants";
 import { FavoriteContext } from "../contexts/farvoriteContext";
 import { MusicContext } from "../contexts/musicContext";
-import edit from "../component/img/editing.png";
 
 export default function PostItems({
   post: {
@@ -35,18 +34,22 @@ export default function PostItems({
   const musicPlayed = document.querySelector(".music__audio");
   const musicFooter = document.querySelector(".music-footer .music__audio");
   const musicFooterError = document.querySelector(".music-footer .music-notify");
-
+  const progress = document.querySelector("#progress__input");
+  console.log("progress_", progress);
   // set  music state at MusicContext to data music selected
   const getMusicSelected = async (music) => {
-    console.log("music_", music);
+    console.log("_music_", music);
     await getIdMusicHome(music);
     const playBtn = document.querySelector(".player-play");
     const urlMusic = document.querySelector(".progress__song");
     urlMusic.play();
+    urlMusic.ontimeupdate = function () {
+      if (urlMusic.duration) {
+        const progressPercen = (urlMusic.currentTime / urlMusic.duration) * 1000;
+        progress.value = progressPercen;
+      }
+    };
     playBtn.classList.add("fa-pause");
-    console.log("playBtn_", playBtn);
-    console.log("urlMusic", urlMusic);
-    console.log("urlMusic", urlMusic.play());
     musicError.style.display = "none";
     musicPlayed.style.display = "block";
     musicFooter.style.display = "flex";
